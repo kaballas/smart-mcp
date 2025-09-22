@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "smartsheet": {
+      "command": "node",
+      "args": ["-r", "dotenv/config", "build/index.js"],
+      "cwd": ".",
+      "env": {
+          "SMARTSHEET_API_KEY": "C3jcurSdCbDfKF1Be5Xpkk9qZovIsywZXAfEr"
+        },
+      "timeout": 60000,
+      "trust": true
+    }
+  }
+}

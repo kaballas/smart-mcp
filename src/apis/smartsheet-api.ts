@@ -6,6 +6,7 @@ import { SmartsheetSheetAPI } from './smartsheet-sheet-api.js';
 import { SmartsheetWorkspaceAPI } from './smartsheet-workspace-api.js';
 import { SmartsheetUserAPI } from './smartsheet-user-api.js';
 import packageJson from '../../package.json' with { type: 'json' };
+import { logger } from '../logger.js';
 
 /**
  * Direct Smartsheet API client that doesn't rely on the SDK
@@ -62,7 +63,7 @@ export class SmartsheetAPI {
     
     while (retries <= maxRetries) {
       try {
-        const url = new URL(`${this.baseUrl}${endpoint}`);
+  const url = new URL(`${this.baseUrl}${endpoint}`);
         
         // Add query parameters if provided
         if (queryParams) {
@@ -73,8 +74,14 @@ export class SmartsheetAPI {
           });
         }
         
-        console.info(`API Request: ${method} ${url.toString()}`);
-        
+        logger.info('smartsheet-api', `API Request: ${method} ${url.toString()}`, {
+          method,
+          url: url.toString(),
+          queryParams,
+        });
+
+        const start = Date.now();
+
         const response = await axios({
           method,
           url: url.toString(),
@@ -85,7 +92,12 @@ export class SmartsheetAPI {
             'User-Agent': `smar-mcp/${packageJson.version}`,
           }
         });
-        
+        const duration = Date.now() - start;
+        logger.debug('smartsheet-api', `API Response: ${method} ${url.toString()} status=${response.status} duration=${duration}ms`, {
+          status: response.status,
+          duration,
+        });
+
         return response.data;
       } catch (error: any) {
         // Check if rate limited
@@ -95,11 +107,18 @@ export class SmartsheetAPI {
             parseInt(retryAfter, 10) * 1000,
             Math.pow(2, retries) * 1000 + Math.random() * 1000
           );
-          console.error(`[Rate Limit] Retrying in ${delay}ms...`);
+          logger.warn('smartsheet-api', `[Rate Limit] Retrying in ${delay}ms...`, {
+            status: error.response?.status,
+            retries,
+          });
           await new Promise(resolve => setTimeout(resolve, delay));
           retries++;
         } else {
-          console.error(`API Error: ${error.message}`, { error });
+          logger.error('smartsheet-api', `API Error: ${error.message}`, {
+            status: error.response?.status,
+            data: error.response?.data,
+            retries,
+          });
           throw this.formatError(error);
         }
       }
@@ -121,7 +140,9 @@ export class SmartsheetAPI {
     (formattedError as any).statusCode = error.response?.status;
     (formattedError as any).errorCode = error.response?.data?.errorCode;
     (formattedError as any).detail = error.response?.data?.detail;
-    
+  // include request id or headers if available for easier troubleshooting
+  (formattedError as any).requestId = error.response?.headers?.['x-request-id'] || error.request?.id;
+  (formattedError as any).raw = error;
     return formattedError;
   }
 }

@@ -1,0 +1,14 @@
+{
+  "name": "smartsheet-mcp-test",
+  "version": "1.0.0",
+  "description": "Test script for Smartsheet MCP server",
+  "main": "test-server.js",
+  "type": "module",
+  "scripts": {
+    "test-server": "node build/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "dotenv": "^16.0.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "smartsheet": {
+      "command": "node",
+      "args": ["build/index.js"],
+      "cwd": ".",
+      "trust": true
+    }
+  }
+}

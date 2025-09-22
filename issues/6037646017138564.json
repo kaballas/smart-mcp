@@ -1,0 +1,35 @@
+{
+  "rowId": "6037646017138564",
+  "comments": [
+    {
+      "id": 1218663025512324,
+      "author": {
+        "name": "Theo Vermeulen",
+        "email": "thevermeulen@deloitte.com.au"
+      },
+      "text": "New Discussion\n\nIssue title: HSS Go-Live Cutover Task #6037646017138564 - Convert XML to JKS blocked by missing M2M key\n\nIssue description: Task \"Convert XML to JKS\" scheduled for completion by August 19, 2025 08:59 AM cannot proceed due to dependency on HSS team obtaining M2M key from ATO. The M2M key creation task (#500) may not be included in HSS cutover tasks and requires immediate addition. Current status unknown regarding HSS team assignment for this prerequisite task.\n\nReported by: Kshitiz Singh",
+      "createdAt": "2025-08-15T05:24:14Z",
+      "parentId": 1734480999780228
+    },
+    {
+      "id": 4419394322861956,
+      "author": {
+        "name": "Theo Vermeulen",
+        "email": "thevermeulen@deloitte.com.au"
+      },
+      "text": "Issue title: HSS Go-Live Cutover - M2M Key Dependency Blocking XML to JKS Conversion\n\nIssue description: Task #6037646017138564 \"Convert XML to JKS\" cannot proceed due to missing M2M key from ATO. HSS team must obtain and share M2M key before XML to JKS conversion can be completed. Task due August 19, 2025. Dependency on task #500 \"Create M2M key in RAM\" remains unresolved with unclear ownership on HSS side.\n\nReported by: Kshitiz Singh",
+      "createdAt": "2025-08-15T05:25:40Z",
+      "parentId": 1734480999780228
+    },
+    {
+      "id": 8491238453710724,
+      "author": {
+        "name": "Theo Vermeulen",
+        "email": "thevermeulen@deloitte.com.au"
+      },
+      "text": "Issue Title: HSS Go-Live Cutover – M2M Key Generation Delayed  \nIssue Description: Kellie Kerr and Lin Hua are unable to proceed with generating the M2M key for the HRplus production cutover due to laptop replacements and Chrome reinstallation delays. This impacts Task #6037646017138564 (Convert XML to JKS), which depends on the M2M key handover to Kshitiz Singh. Chrome has been requested and is pending installation.  \nReported by: Kellie Kerr",
+      "createdAt": "2025-08-18T02:24:57Z",
+      "parentId": 1734480999780228
+    }
+  ]
+}
